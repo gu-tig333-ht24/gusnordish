@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:template/Pages/home_page.dart';
+import 'package:template/Pages/new_todo.dart';
+import 'package:template/models/save_task.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => SaveTask(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -11,19 +19,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        '/': (_) => HomePage(),
+        '/new-todo-screen': (_) => NewTodo(),
+      },
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
       theme: ThemeData(
         brightness: Brightness.dark,
         useMaterial3: true,
-
-        // Define colors for your theme
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color.fromARGB(255, 20, 20, 20),
           brightness: Brightness.dark,
         ),
-
-        // Customize the text color globally
         textTheme: const TextTheme(
           headlineLarge: TextStyle(
             fontSize: 50,
@@ -36,8 +43,6 @@ class MyApp extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-
-        // Customize input decoration globally (for text fields)
         inputDecorationTheme: const InputDecorationTheme(
           hintStyle: TextStyle(color: Colors.white54),
           enabledBorder: OutlineInputBorder(
@@ -47,12 +52,10 @@ class MyApp extends StatelessWidget {
             borderSide: BorderSide(color: Colors.white),
           ),
         ),
-
-        // Customize button styles globally
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white, // Button background color
-            foregroundColor: Colors.black, // Button text color
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
           ),
         ),
       ),

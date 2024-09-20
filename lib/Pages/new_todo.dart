@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:template/models/save_task.dart';
+import 'package:template/models/task_model.dart';
 
-class TodoList extends StatelessWidget {
-  TodoList({super.key});
+class NewTodo extends StatelessWidget {
+  NewTodo({super.key});
 
   final textController = TextEditingController();
 
@@ -12,7 +15,7 @@ class TodoList extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 20, 20, 20),
         centerTitle: true,
-        title: Text('Add Task'),
+        title: Text('New Task'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -28,7 +31,14 @@ class TodoList extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<SaveTask>().newTask(Task(
+                      title: textController.text,
+                      isCompleted: false,
+                    ));
+                textController.clear();
+                Navigator.of(context).pop();
+              },
               child: const Text('Add'),
             )
           ],
