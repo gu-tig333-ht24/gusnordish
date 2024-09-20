@@ -1,11 +1,44 @@
+/*
+
+
 import 'package:flutter/material.dart';
-import 'package:template/Pages/todo_list.dart';
-import 'package:template/utilities/new_todo.dart';
+import 'package:template/utilities/dialog_box.dart';
+
 
 // Huvudsida:
 
-class HomePage extends StatelessWidget {
+
+
+
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  // Lista på todo kort
+  List toDoList = [
+    ["Task 1", false],
+    ["Task 2", false],
+  ];
+
+  // Checkbox checker (on or off)
+  void checkBoxChanged(bool? value, int index) {
+    setState(() {
+      toDoList[index][1] = !toDoList[index][1];
+    });
+  }
+
+  // Skapa ny task
+  void createNewTask() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return DialogBox();
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +51,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 20, 20, 20),
         title: Text(
           style: TextStyle(color: Colors.white),
-          'Todo Page',
+          'Home Page',
         ),
         centerTitle: true,
         actions: [
@@ -31,18 +64,25 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
+      body: ListView.builder(
+        itemCount: toDoList.length,
+        itemBuilder: (context, index) {
+          return ToDotile(
+            taskName: toDoList[index][0],
+            taskCompleted: toDoList[index][1],
+            onChanged: (value) => checkBoxChanged(value, index),
+          );
+        },
+      ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 35, right: 8.0),
         child: SizedBox(
           height: 65,
           width: 65,
           child: FloatingActionButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => TodoList()));
-            },
-            backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-            foregroundColor: const Color.fromARGB(255, 20, 20, 20),
+            onPressed: createNewTask,
+            backgroundColor: Colors.black,
+            foregroundColor: Colors.white,
             child: Icon(Icons.add),
           ),
         ),
@@ -50,4 +90,4 @@ class HomePage extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
-}
+*/
