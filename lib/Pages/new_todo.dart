@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:template/models/save_task.dart';
 import 'package:template/models/task_model.dart';
+import 'package:uuid/uuid.dart';
 
 class NewTodo extends StatelessWidget {
   NewTodo({super.key});
@@ -15,7 +16,7 @@ class NewTodo extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 20, 20, 20),
         centerTitle: true,
-        title: Text('New Task'),
+        title: const Text('New Task'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -32,7 +33,9 @@ class NewTodo extends StatelessWidget {
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
+                var uuid = Uuid(); 
                 context.read<SaveTask>().newTask(Task(
+                      id: uuid.v4(), 
                       title: textController.text,
                       isCompleted: false,
                     ));
