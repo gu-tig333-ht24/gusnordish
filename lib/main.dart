@@ -3,11 +3,21 @@ import 'package:template/Pages/home_page.dart';
 import 'package:template/Pages/new_todo.dart';
 import 'package:template/models/save_task.dart';
 import 'package:provider/provider.dart';
+import 'package:template/models/API/todo_api.dart'; // Import the API
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+ 
+  final networkService = NetworkService();
+  String apiKey =
+      await networkService.getApiKey(); 
+
+  print(apiKey); 
+
   runApp(
     ChangeNotifierProvider(
-      create: (context) => SaveTask(),
+      create: (context) => SaveTask(apiKey), 
       child: const MyApp(),
     ),
   );
@@ -20,8 +30,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/': (_) => HomePage(),
-        '/new-todo-screen': (_) => NewTodo(),
+        '/': (context) => HomePage(),
+        '/new-todo-screen': (context) => NewTodo(),
       },
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
