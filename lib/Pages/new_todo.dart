@@ -33,9 +33,9 @@ class NewTodo extends StatelessWidget {
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                var uuid = Uuid(); 
+                var uuid = Uuid();
                 context.read<SaveTask>().newTask(Task(
-                      id: uuid.v4(), 
+                      id: uuid.v4(),
                       title: textController.text,
                       isCompleted: false,
                     ));

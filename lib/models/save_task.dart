@@ -52,15 +52,14 @@ class SaveTask extends ChangeNotifier {
     await fetchTasksFromAPI();
   }
 
-
   void isChecked(int index) async {
-    _tasks[index].isChecked(); 
-    await _networkService.updateTask(_tasks[index], apiKey); 
+    _tasks[index].isChecked();
+    await _networkService.updateTask(_tasks[index], apiKey);
     notifyListeners();
   }
 
   void setFilter(TaskFilter filter) {
     _filter = filter;
-    notifyListeners(); 
+    notifyListeners();
   }
 }

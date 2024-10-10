@@ -8,16 +8,14 @@ import 'package:template/models/API/todo_api.dart'; // Import the API
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
- 
   final networkService = NetworkService();
-  String apiKey =
-      await networkService.getApiKey(); 
+  String apiKey = await networkService.getApiKey();
 
-  print(apiKey); 
+  print(apiKey);
 
   runApp(
     ChangeNotifierProvider(
-      create: (context) => SaveTask(apiKey), 
+      create: (context) => SaveTask('73a0d396-e6ec-4aa2-a975-a86fee3a53b7'),
       child: const MyApp(),
     ),
   );
